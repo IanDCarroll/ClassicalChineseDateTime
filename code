@@ -1,0 +1,414 @@
+<html>
+<head>
+	<title>JavaScript Example</title>
+	<script type="text/javascript">
+		function substitute() {
+			var myValue = document.getElementById('myTextBox').value;
+            
+            var myTitle = document.getElementById('title');
+            if (myValue >= 4) {
+			    switch ((myValue - 3) %60) {
+			        case 1:
+			            myTitle.innerHTML = "JiaZi";
+			            break;
+			        case 2:
+			            myTitle.innerHTML = "YiChou";
+			            break;
+			        case 3:
+			            myTitle.innerHTML = "BingYin";
+			            break;
+			        case 4:
+			            myTitle.innerHTML = "DingMao";
+			            break;
+			        case 5:
+			            myTitle.innerHTML = "WuChen";
+			            break;
+			        case 6:
+			            myTitle.innerHTML = "JiSi";
+			            break;
+			        case 7:
+			            myTitle.innerHTML = "GengWu";
+			            break;
+			        case 8:
+			            myTitle.innerHTML = "XinWei";
+			            break;
+			        case 9:
+			            myTitle.innerHTML = "RenShen";
+			            break;
+			        case 10:
+			            myTitle.innerHTML = "GuiYou";
+			            break;
+			        case 11:
+			            myTitle.innerHTML = "JiaXu";
+			            break;
+			        case 12:
+			            myTitle.innerHTML = "YiHai";
+			            break;
+			        case 13:
+			            myTitle.innerHTML = "BingZi";
+			            break;
+			        case 14:
+			            myTitle.innerHTML = "DingChou";
+			            break;
+			        case 15:
+			            myTitle.innerHTML = "WuYin";
+			            break;
+			        case 16:
+			            myTitle.innerHTML = "JiMao";
+			            break;
+			        case 17:
+			            myTitle.innerHTML = "GengChen";
+			            break;
+			        case 18:
+			            myTitle.innerHTML = "XinSi";
+			            break;
+			        case 19:
+			            myTitle.innerHTML = "RenWu";
+			            break;
+			        case 20:
+			            myTitle.innerHTML = "GuiWei";
+			            break;
+			        case 21:
+			            myTitle.innerHTML = "JiaShen";
+			            break;
+			        case 22:
+			            myTitle.innerHTML = "YiYou";
+			            break;
+			        case 23:
+			            myTitle.innerHTML = "BingXu";
+			            break;
+			        case 24:
+			            myTitle.innerHTML = "DingHai";
+			            break;
+			        case 25:
+			            myTitle.innerHTML = "WuZi";
+			            break;
+			        case 26:
+			            myTitle.innerHTML = "JiChou";
+			            break;
+			        case 27:
+			            myTitle.innerHTML = "GengYin";
+			            break;
+			        case 28:
+			            myTitle.innerHTML = "XinMao";
+			            break;
+			        case 29:
+			            myTitle.innerHTML = "RenChen";
+			            break;
+			        case 30:
+			            myTitle.innerHTML = "GuiSi";
+			            break;
+			        case 31:
+			            myTitle.innerHTML = "JiaWu";
+			            break;
+			        case 32:
+			            myTitle.innerHTML = "YiWei";
+			            break;
+			        case 33:
+			            myTitle.innerHTML = "BingShen";
+			            break;
+			        case 34:
+			            myTitle.innerHTML = "DingYou";
+			            break;
+			        case 35:
+			            myTitle.innerHTML = "WuXu";
+			            break;
+			        case 36:
+			            myTitle.innerHTML = "JiHai";
+			            break;
+			        case 37:
+			            myTitle.innerHTML = "GengZi";
+			            break;
+			        case 38:
+			            myTitle.innerHTML = "XinChou";
+			            break;
+			        case 39:
+			            myTitle.innerHTML = "RenYin";
+			            break;
+			        case 40:
+			            myTitle.innerHTML = "GuiMao";
+			            break;
+			        case 41:
+			            myTitle.innerHTML = "JiaChen";
+			            break;
+			        case 42:
+			            myTitle.innerHTML = "YiSi";
+			            break;
+			        case 43:
+			            myTitle.innerHTML = "BingWu";
+			            break;
+			        case 44:
+			            myTitle.innerHTML = "DingWei";
+			            break;
+			        case 45:
+			            myTitle.innerHTML = "WuShen";
+			            break;
+			        case 46:
+			            myTitle.innerHTML = "JiYou";
+			            break;
+			        case 47:
+			            myTitle.innerHTML = "GengXu";
+			            break;
+			        case 48:
+			            myTitle.innerHTML = "XinHai";
+			            break;
+			        case 49:
+			            myTitle.innerHTML = "RenZi";
+			            break;
+			        case 50:
+			            myTitle.innerHTML = "GuiChou";
+			            break;
+			        case 51:
+			            myTitle.innerHTML = "JiaYin";
+			            break;
+			        case 52:
+			            myTitle.innerHTML = "YiMao";
+			            break;
+			        case 53:
+			            myTitle.innerHTML = "BingChen";
+			            break;
+			        case 54:
+			            myTitle.innerHTML = "DingSi";
+			            break;
+			        case 55:
+			            myTitle.innerHTML = "WuWu";
+			            break;
+			        case 56:
+			            myTitle.innerHTML = "JiWei";
+			            break;
+			        case 57:
+			            myTitle.innerHTML = "GengShen";
+			            break;
+			        case 58:
+			            myTitle.innerHTML = "XinYou";
+			            break;
+			        case 59:
+			            myTitle.innerHTML = "RenXu";
+			            break;
+			        case 0:
+			            myTitle.innerHTML = "GuiHai";
+			            break;
+			        default:
+			            myTitle.innerHTML = "Error AD";
+			            break;
+			    }
+			} else {
+			    switch (myValue) {
+			        case "1":
+			            myTitle.innerHTML = "XinYou";
+			            break;
+			        case "2":
+			            myTitle.innerHTML = "RenXu";
+			            break;
+			        case "3":
+			            myTitle.innerHTML = "GuiHai";
+			            break;   
+			        default: myTitle.innerHTML = "Please enter an integer for the year. For example 2015, if you are coverting 2015 AD. Use BC Convert for BC years.";
+			        break;
+			    }
+			}
+		}
+		function substituteTwo() {
+			var myValue = document.getElementById('myTextBox').value;
+            
+            var myTitle = document.getElementById('title');
+            if (myValue >= 1) {
+			    switch (60-((myValue) % 60)) {
+			        case 3:
+			            myTitle.innerHTML = "JiaZi";
+			            break;
+			        case 4:
+			            myTitle.innerHTML = "YiChou";
+			            break;
+			        case 5:
+			            myTitle.innerHTML = "BingYin";
+			            break;
+			        case 6:
+			            myTitle.innerHTML = "DingMao";
+			            break;
+			        case 7:
+			            myTitle.innerHTML = "WuChen";
+			            break;
+			        case 8:
+			            myTitle.innerHTML = "JiSi";
+			            break;
+			        case 9:
+			            myTitle.innerHTML = "GengWu";
+			            break;
+			        case 10:
+			            myTitle.innerHTML = "XinWei";
+			            break;
+			        case 11:
+			            myTitle.innerHTML = "RenShen";
+			            break;
+			        case 12:
+			            myTitle.innerHTML = "GuiYou";
+			            break;
+			        case 13:
+			            myTitle.innerHTML = "JiaXu";
+			            break;
+			        case 14:
+			            myTitle.innerHTML = "YiHai";
+			            break;
+			        case 15:
+			            myTitle.innerHTML = "BingZi";
+			            break;
+			        case 16:
+			            myTitle.innerHTML = "DingChou";
+			            break;
+			        case 17:
+			            myTitle.innerHTML = "WuYin";
+			            break;
+			        case 18:
+			            myTitle.innerHTML = "JiMao";
+			            break;
+			        case 19:
+			            myTitle.innerHTML = "GengChen";
+			            break;
+			        case 20:
+			            myTitle.innerHTML = "XinSi";
+			            break;
+			        case 21:
+			            myTitle.innerHTML = "RenWu";
+			            break;
+			        case 22:
+			            myTitle.innerHTML = "GuiWei";
+			            break;
+			        case 23:
+			            myTitle.innerHTML = "JiaShen";
+			            break;
+			        case 24:
+			            myTitle.innerHTML = "YiYou";
+			            break;
+			        case 25:
+			            myTitle.innerHTML = "BingXu";
+			            break;
+			        case 26:
+			            myTitle.innerHTML = "DingHai";
+			            break;
+			        case 27:
+			            myTitle.innerHTML = "WuZi";
+			            break;
+			        case 28:
+			            myTitle.innerHTML = "JiChou";
+			            break;
+			        case 29:
+			            myTitle.innerHTML = "GengYin";
+			            break;
+			        case 30:
+			            myTitle.innerHTML = "XinMao";
+			            break;
+			        case 31:
+			            myTitle.innerHTML = "RenChen";
+			            break;
+			        case 32:
+			            myTitle.innerHTML = "GuiSi";
+			            break;
+			        case 33:
+			            myTitle.innerHTML = "JiaWu";
+			            break;
+			        case 34:
+			            myTitle.innerHTML = "YiWei";
+			            break;
+			        case 35:
+			            myTitle.innerHTML = "BingShen";
+			            break;
+			        case 36:
+			            myTitle.innerHTML = "DingYou";
+			            break;
+			        case 37:
+			            myTitle.innerHTML = "WuXu";
+			            break;
+			        case 38:
+			            myTitle.innerHTML = "JiHai";
+			            break;
+			        case 39:
+			            myTitle.innerHTML = "GengZi";
+			            break;
+			        case 40:
+			            myTitle.innerHTML = "XinChou";
+			            break;
+			        case 41:
+			            myTitle.innerHTML = "RenYin";
+			            break;
+			        case 42:
+			            myTitle.innerHTML = "GuiMao";
+			            break;
+			        case 43:
+			            myTitle.innerHTML = "JiaChen";
+			            break;
+			        case 44:
+			            myTitle.innerHTML = "YiSi";
+			            break;
+			        case 45:
+			            myTitle.innerHTML = "BingWu";
+			            break;
+			        case 46:
+			            myTitle.innerHTML = "DingWei";
+			            break;
+			        case 47:
+			            myTitle.innerHTML = "WuShen";
+			            break;
+			        case 48:
+			            myTitle.innerHTML = "JiYou";
+			            break;
+			        case 49:
+			            myTitle.innerHTML = "GengXu";
+			            break;
+			        case 50:
+			            myTitle.innerHTML = "XinHai";
+			            break;
+			        case 51:
+			            myTitle.innerHTML = "RenZi";
+			            break;
+			        case 52:
+			            myTitle.innerHTML = "GuiChou";
+			            break;
+			        case 53:
+			            myTitle.innerHTML = "JiaYin";
+			            break;
+			        case 54:
+			            myTitle.innerHTML = "YiMao";
+			            break;
+			        case 55:
+			            myTitle.innerHTML = "BingChen";
+			            break;
+			        case 56:
+			            myTitle.innerHTML = "DingSi";
+			            break;
+			        case 57:
+			            myTitle.innerHTML = "WuWu";
+			            break;
+			        case 58:
+			            myTitle.innerHTML = "JiWei";
+			            break;
+			        case 59:
+			            myTitle.innerHTML = "GengShen";
+			            break;
+			        case 0:
+			            myTitle.innerHTML = "XinYou";
+			            break;
+			        case 1:
+			            myTitle.innerHTML = "RenXu";
+			            break;
+			        case 2:
+			            myTitle.innerHTML = "GuiHai";
+			            break;
+			        default:
+			            myTitle.innerHTML = "Error BC";
+			            break;
+			    }
+			} else {
+			    myTitle.innerHTML = "Please enter an integer for the year. For example 221, if you are coverting 221 BC. Use AD Convert for AD years.";
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1 id="title">Sexagenary Converter</h1>
+
+	<input type="text" id="myTextBox"/>
+	<input type="submit" value="AD Convert" onclick="substitute()"/>
+	<input type="submit" value="BC Convert" onclick="substituteTwo()"/>
+</body>
+</html>
