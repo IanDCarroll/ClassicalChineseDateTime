@@ -113,12 +113,16 @@ function numberToStemBranch(number) {
 
 // Controls the calibration of Gregorian Years to a %60 code number for numberToStemBranch to convert.
 // Rounds and ignores finer date/time information coming in the form of floats to get "just the year at that time".
+// Accepts a single parameter (year) and assumes that to mean "AD" or "CE".
+// era input is non-case-sensitive.
 function yearConverter(year, era) {
 	var number = 0;
-	if ((era === "AD" || era === "CE") && year >= 1) {
+	if (isNaN(year)) {
+		return "Please enter an Indian Numeral for the year without quotation marks.";
+	} else if ( era === undefined || (era.toUpperCase() === "AD" || era.toUpperCase() === "CE") && year >= 1) {
 		number = (year - 3) % 60;
 		return numberToStemBranch(Math.floor(number));
-  } else if ((era === "BC" || era === "BCE") && year >= 1) {
+ 	} else if ((era === "BC" || era === "BCE") && year >= 1) {
 		number = 60 - ((year + 2) % 60);
 		return numberToStemBranch(Math.ceil(number));
 	} else if ((era !== "AD" && era !== "BC") && (era !== "CE" && era !== "BCE")) {
@@ -165,7 +169,11 @@ console.log(yearConverter(-2, "AD"));
 console.log(yearConverter(-3, "AD"));
 console.log(yearConverter(-4, "AD"));
 console.log(yearConverter(-5, "AD"));
-console.log("Misc Input Errors ==>")
+console.log("Misc Input Vagaries ==>")
 console.log(yearConverter(1983, "ad"))
 console.log(yearConverter(1983));
+console.log(yearConverter("1983", "AD"));
+console.log(yearConverter(true));
+console.log(yearConverter(false));
+console.log(yearConverter(1983, "UCK"));
 console.log(yearConverter("Nineteen Eighty-Three"));
