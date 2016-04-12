@@ -30,25 +30,27 @@
 
 //rough draft, but kinda working. pollish to come. don't judge me.
 function convToEast(ms) {
-    var miao = 0,
+    var rawMiao = 0,
+	miao = 0,
 	fen = 0,
 	xiaoKe = 0,
-	ke = 0,
+	ke = 0,  
 	shiChen = 0,
 	day = 0; 
 
-    miao = ms / 144;
+    rawMiao = ms / 144;
+    miao = Math.floor(rawMiao) % 100;
 
-    if (miao >= 100) {
-	fen = miao / 100;
-    } if (miao >= 1000) {
-	xiaoKe = miao / 1000;
-    } if (miao >= 6000) {
-	ke = miao / 6000;
-    } if (miao >= 50000) {
-	shi = miao / 50000;
-    } if (miao >= 600000) {
-	day = miao / 600000;
+    if (rawMiao >= 100) {
+	fen = Math.floor(rawMiao / 100) % 60;
+    } if (rawMiao >= 1000) {
+	xiaoKe = Math.floor(rawMiao / 1000) % 50;
+    } if (rawMiao >= 6000) {
+	ke = Math.floor(rawMiao / 6000) % 100;
+    } if (rawMiao >= 50000) {
+	shiChen = Math.floor(rawMiao / 50000) % 12 + 1;
+    } if (rawMiao >= 600000) {
+	day = Math.floor(rawMiao / 600000);
     }
 
     return day + ":" + shiChen + ":" + ke + ":" + xiaoKe + ":" + fen + ":" + miao;
@@ -56,14 +58,14 @@ function convToEast(ms) {
 
 //maual tests:
 console.log(convToEast(86400000));
-console.log(convToEast(86411235));
+console.log(convToEast(1265489399));
 console.log(convToEast(7200000));
-console.log(convToEast(7274656));
+console.log(convToEast(11235813));
 console.log(convToEast(864000));
-console.log(convToEast(864451));
+console.log(convToEast(4211235));
 console.log(convToEast(144000));
-console.log(convToEast(144238));
+console.log(convToEast(768974));
 console.log(convToEast(14400));
-console.log(convToEast(14442));
+console.log(convToEast(132386));
 console.log(convToEast(6048));
 console.log(convToEast(144));
