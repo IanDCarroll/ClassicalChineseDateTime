@@ -28,15 +28,19 @@
  * The first day of the first year of the first Great Cycle was in 2697 BC.
  */
 
-//rough draft, but kinda working. pollish to come. don't judge me.
-function convToEast(ms) {
+//public data table
+var temprlAry = [];
+
+//the core converter. Uses ms because that's the base time unit in Date().
+function convToCCT(ms) {
     var rawMiao = 0,
 	miao = 0,
 	fen = 0,
 	xiaoKe = 0,
 	ke = 0,  
-	shiChen = 0,
-	day = 0; 
+	shiChenNum = 0,
+	day = 0,
+	localAry = [];
 
     rawMiao = ms / 144;
     miao = Math.floor(rawMiao) % 100;
@@ -48,24 +52,79 @@ function convToEast(ms) {
     } if (rawMiao >= 6000) {
 	ke = Math.floor(rawMiao / 6000) % 100;
     } if (rawMiao >= 50000) {
-	shiChen = Math.floor(rawMiao / 50000) % 12 + 1;
+	shiChenNum = Math.floor(rawMiao / 50000) % 12;
     } if (rawMiao >= 600000) {
 	day = Math.floor(rawMiao / 600000);
     }
 
-    return day + ":" + shiChen + ":" + ke + ":" + xiaoKe + ":" + fen + ":" + miao;
+    localAry.push(day, shiChenNum, ke, xiaoKe, fen, miao);
+    temprlAry = localAry;
+    return temprlAry;
+}
+
+//separating out display from calc so it's easy to delete.
+function displayCCT (ms) {
+    convToCCT(ms);
+
+    var shiChen = "";
+
+    switch(temprlAry[1]) {
+	case 0:
+	    shiChen = "Zi";
+	    break;
+	case 1:
+	    shiChen = "Chou";
+	    break;
+	case 2:
+	    shiChen = "Yin";
+	    break;
+	case 3:
+	    shiChen = "Mao";
+	    break;
+	case 4:
+	    shiChen = "Chen";
+	    break;
+	case 5:
+	    shiChen = "Si";
+	    break;
+	case 6:
+	    shiChen = "Wu";
+	    break;
+	case 7:
+	    shiChen = "Wei";
+	    break;
+	case 8:
+	    shiChen = "Shen";
+	    break;
+	case 9:
+	    shiChen = "You";
+	    break;
+	case 10:
+	    shiChen = "Xu";
+	    break;
+	case 11:
+	    shiChen = "Hai";
+	    break;
+    }
+
+    var display = "Day " + temprlAry[0] + ", " 
+		+ shiChen + ":" + temprlAry[3] + " Shi, " 
+		+ "Ke " + temprlAry[2] + ":" + temprlAry[4] + ":" 
+		+ temprlAry[5] + " o'day.";
+
+    return display;
 }
 
 //maual tests:
-console.log(convToEast(86400000));
-console.log(convToEast(1265489399));
-console.log(convToEast(7200000));
-console.log(convToEast(11235813));
-console.log(convToEast(864000));
-console.log(convToEast(4211235));
-console.log(convToEast(144000));
-console.log(convToEast(768974));
-console.log(convToEast(14400));
-console.log(convToEast(132386));
-console.log(convToEast(6048));
-console.log(convToEast(144));
+console.log(displayCCT(1265489399));
+console.log(displayCCT(86400000));
+console.log(displayCCT(7200000));
+console.log(displayCCT(11235813));
+console.log(displayCCT(864000));
+console.log(displayCCT(4211235));
+console.log(displayCCT(144000));
+console.log(displayCCT(768974));
+console.log(displayCCT(14400));
+console.log(displayCCT(132386));
+console.log(displayCCT(6048));
+console.log(displayCCT(144));
