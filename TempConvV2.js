@@ -115,16 +115,18 @@ function displayCCT (ms) {
     return display;
 }
 
+function getCCTNow() {
+    var nowUTC = new Date,
+	nowUTCms = Date.parse(nowUTC),
+	//60,000ms = the minutes of Timezone offset
+	//The 3,600,000 is the hour earlier that Classical Chinese time 
+	//recons the start of day (11pm)
+	nowTZ = -(nowUTC.getTimezoneOffset() * 60000 - 3600000),
+	now = nowUTCms + nowTZ;
+
+    return displayCCT(now);
+}
+
 //maual tests:
-console.log(displayCCT(1265489399));
-console.log(displayCCT(86400000));
-console.log(displayCCT(7200000));
-console.log(displayCCT(11235813));
-console.log(displayCCT(864000));
-console.log(displayCCT(4211235));
-console.log(displayCCT(144000));
-console.log(displayCCT(768974));
-console.log(displayCCT(14400));
-console.log(displayCCT(132386));
-console.log(displayCCT(6048));
-console.log(displayCCT(144));
+console.log(getCCTNow());
+console.log(Date());
