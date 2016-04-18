@@ -107,8 +107,17 @@ function displayCCT (ms) {
 	    break;
     }
 
-    var display = "Day " + temprlAry[0] + ", " 
-		+ shiChen + ":" + temprlAry[3] + " Shi, " 
+    //stringifies numbers after the Shi place (temprlAry[1]) if < 10
+    //so they always have an even two spaces.
+    for (var i = 2; i < temprlAry.length; i++) {
+	if (temprlAry[i] < 10 ) {
+	    temprlAry[i].toString;
+	    temprlAry[i] = "0" + temprlAry[i]; 
+	}
+    }
+
+    var display = "Day " + temprlAry[0] + ". " 
+		+ shiChen + " Shi " + temprlAry[3] + ". " 
 		+ "Ke " + temprlAry[2] + ":" + temprlAry[4] + ":" 
 		+ temprlAry[5] + " o'day.";
 
