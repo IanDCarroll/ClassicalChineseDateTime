@@ -12,8 +12,35 @@
  * Closest Winter Solstice to      UTC 1/1/1970 00:00:000 = 
  *	UTC 22/12/1969 00:44:00 = -861360000 ms
  *
+ * FEAR: Avg and Mean times may not be accurate enough, but what to do about * chaotic perturbations in the orbits of the celestial bodies? :/
+ *
  * New Year = 2nd New Moon after winter Solstice
- * New Year 1970 = UTC 6/2/1970 07:00:000 
- * 	China Timezone UTC +8, -1 because CCT new day starts at 23:00
- *	so UTC +7 for China-centric New year start time.
+ * New Year starts at 23:00:000 because CC Days start then 
+ * (unless Daylight savings, then its 00:00:000 again)
  */
+
+//constants:
+var wSOffset = -861360000,
+    mTropYr = 31556925000,
+    synodMo = 2551442802,
+    SolTerm = mTropYr / 24,
+    majSTrm = mTropYr / 12;
+
+//returns the time of solstice.
+function getSolstice(ms) {
+    var WinterSolsice = (ms + wSOffset) / mTropYr;
+}
+
+//Returns the new moon's wicked-cool beat.
+function getNewMoon(ms) {
+	//code
+}
+
+//returns the CCYear
+function getCCYear(ms) {}
+
+//returns the date and time under that CCYear
+function getCCMonth(ms) {}
+
+//wraps it all up in a pretty bow.
+function getCCTime(ms) {}
