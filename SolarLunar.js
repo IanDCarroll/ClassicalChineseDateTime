@@ -31,8 +31,12 @@ var wSOffset = -861360000,
     majSTrm = mTropYr / 12;
 
 //returns the time of solstice.
+//if CCYear stated on winter solstice, this would give me the year.
 function getSolstice(ms) {
-    var winterSolsice = (ms + wSOffset) / mTropYr;
+    var winterSolsice = (ms + wSOffset) / mTropYr,
+	newCCYear = wintersolstice + synodMo + //partial synodic month.
+	//how do I get that flingin' flangin' partial month?!
+	//newMoon - winterSolstice is something like what I'm looking for.
 }
 
 //Returns the new moon's wicked-cool beat.
@@ -48,3 +52,6 @@ function getCCMonth(ms) {}
 
 //wraps it all up in a pretty bow.
 function getCCTime(ms) {}
+
+//manual tests
+console.log();

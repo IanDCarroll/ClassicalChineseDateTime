@@ -28,6 +28,8 @@
  * The first day of the first year of the first Great Cycle was in 2697 BC.
  */
 
+//todo: Account for daylight savings first US, but also other contries.
+
 //public data table
 var temprlAry = [];
 
