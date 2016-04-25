@@ -34,8 +34,10 @@ var wSOffset = -861360000,
 //will be used as the starting point for the Chinese Date
 //may need to retool so it can handle dates before 1970
 function getYearLast(ms) {
-	//gets the month as a float. The # of months since 1970.
+	//gets the # of months since 1970.
     var moonNum = Math.floor((ms - nMOffset) / synodMo),
+	//gets the # of winters since 1969.
+	winterNum = Math.floor((ms - wSOffset) / mTropYr),
 	//gets the date in ms of the last solstice
 	winterLast = winterNum * mTropYr,
 	//a counter for the loop
