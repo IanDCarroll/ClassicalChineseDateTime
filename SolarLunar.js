@@ -30,28 +30,27 @@ var wSOffset = -861360000,
     SolTerm = mTropYr / 24,
     majSTrm = mTropYr / 12;
 
-//returns the time of solstice.
-//if CCYear stated on winter solstice, this would give me the year.
-function getSolstice(ms) {
-    var winterSolsice = (ms + wSOffset) / mTropYr,
-	newCCYear = wintersolstice + synodMo + //partial synodic month.
-	//how do I get that flingin' flangin' partial month?!
-	//newMoon - winterSolstice is something like what I'm looking for.
+//returns the starting time (ms) for the last chinese new year
+//will be used as the starting point for the Chinese Date
+//may need to retool so it can handle dates before 1970
+function getYearLast(ms) {
+	//gets the month as a float. The # of months since 1970.
+    var moonNum = Math.floor((ms - nMOffset) / synodMo),
+	//gets the date in ms of the last solstice
+	winterLast = winterNum * mTropYr,
+	//a counter for the loop
+	moonCount = ms,
+	//an important piece of the puzzle to get CCC 1/1
+	moonFrag = 0;
+
+    for (var i = 0; i < moonNum; i++) {
+	if (moonCount < (winterLast + synodMo)) {
+	    moonFrag = moonCount - winterLast;
+	    break;
+	} else {
+	    moonCount -= synodMo;
+	}
+    }
+
+    return winterLast + moonFrag + synodMo;
 }
-
-//Returns the new moon's wicked-cool beat.
-function getNewMoon(ms) {
-    var newMoon = (ms + nMOffset) / synodMo;
-}
-
-//returns the CCYear
-function getCCYear(ms) {}
-
-//returns the date and time under that CCYear
-function getCCMonth(ms) {}
-
-//wraps it all up in a pretty bow.
-function getCCTime(ms) {}
-
-//manual tests
-console.log();
