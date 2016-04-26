@@ -22,17 +22,21 @@
  * (unless Daylight savings, then its 00:00:000 again)
  */
 
+//todo: remember Chinese days start at UTC -1 Hours! 
+//Make sure to account for it! (first func: ms + 1 hr)
+//todo: retool functions so they can handle dates before 1970.
+
 //constants:
 var wSOffset = -861360000,
     nMOffset =  592500000,
     mTropYr = 31556925000,
     synodMo =  2551442802,
+    day =        86400000,
     SolTerm = mTropYr / 24,
     majSTrm = mTropYr / 12;
 
 //returns the starting time (ms) for the last chinese new year
 //will be used as the starting point for the Chinese Date
-//may need to retool so it can handle dates before 1970
 function getYearLast(ms) {
 	//gets the # of months since 1970.
     var moonNum = Math.floor((ms - nMOffset) / synodMo),
@@ -43,7 +47,11 @@ function getYearLast(ms) {
 	//a counter for the loop
 	moonCount = ms,
 	//an important piece of the puzzle to get CCC 1/1
-	moonFrag = 0;
+	moonFrag = 0,
+	//ms precise start of newest new year.
+	rawYearLast = 0,
+	//more useful day precise start of new year.
+	yearLast = 0;
 
     for (var i = 0; i < moonNum; i++) {
 	if (moonCount < (winterLast + synodMo)) {
@@ -54,5 +62,13 @@ function getYearLast(ms) {
 	}
     }
 
-    return winterLast + moonFrag + synodMo;
+    rawYearLast = winterLast + moonFrag + synodMo;
+    yearLast = (Math.floor(rawYearLast / day)) * day;
+    return yearLast; 
+}
+
+//doesn't yet identify which are intercalary months. Sometimes there's a month 13 here. todo: use majSTrm to identify the intercalary (run) month.
+function getMonth(ms) {
+    var monthNum = Math.floor((ms - getYearLast(ms)) / synodMo);
+    return monthNum;
 }
