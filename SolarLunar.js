@@ -1,9 +1,10 @@
-/* solar & lunar carlulator
+/* solar & lunar calculator
  * this code returns the Chinese calendar year and month.
  *    1. The new moon in ms relative to UTC 1/1/1970 00:00:00:000
  *    2. The 24 solar terms of CCT as above.
  * this data can then be passed to TempConV2.js to calculate the year, 
- * month, xun, and day along with any intercalary months, and whether those  * months are long (30 days) or short (29)
+ * month, xun, and day along with any intercalary months, and whether those 
+ * months are long (30 days) or short (29)
  *
  * Avg Synodic Month  = 	   2551442802 ms
  * Mean Tropical Year = 	  31556925000 ms
@@ -15,7 +16,8 @@
  * Closest New Moon to 		   UTC 1/1/1970 00:00:000 =
  *	UTC 07/01/1970 20:35:000 =  592500000 ms
  *
- * FEAR: Avg and Mean times may not be accurate enough, but what to do about * chaotic perturbations in the orbits of the celestial bodies? :/
+ * FEAR: Avg and Mean times may not be accurate enough, but what to do about
+ * chaotic perturbations in the orbits of the celestial bodies? :/
  *
  * New Year = 2nd New Moon after winter Solstice
  * New Year starts at 23:00:000 because CC Days start then 
@@ -35,15 +37,30 @@ var wSOffset = -861360000,
     SolTerm = mTropYr / 24,
     majSTrm = mTropYr / 12;
 
+//returns the most recent winter solstice
+//gets the number of winters since 12/1969 in ms usable form.
+function getWinterLast(ms) {
+    var winterlast = Math.floor((ms - wSOffset) / mTropYr) * mTropYr;
+    return winterLast; 
+}
+
+//returns the most recent new moon
+function getMoonLast(ms) {
+    var moonLast = Math.floor((ms - nMOffset) / synodMo) * synodMo;
+    return moonLast;
+}
+
+//gets the ms usable date of the last major solar term.
+function getMSTLast(ms) {
+    var mSTLast = Math.floor((ms - wSOffset) / majSTrm)) * majSTrm;
+    return mSTLast;
+}
+
 //returns the starting time (ms) for the last chinese new year
-//will be used as the starting point for the Chinese Date
+//the starting point for the Chinese Date
 function getYearLast(ms) {
 	//gets the # of months since 1970.
     var moonNum = Math.floor((ms - nMOffset) / synodMo),
-	//gets the # of winters since 1969.
-	winterNum = Math.floor((ms - wSOffset) / mTropYr),
-	//gets the date in ms of the last solstice
-	winterLast = winterNum * mTropYr,
 	//a counter for the loop
 	moonCount = ms,
 	//an important piece of the puzzle to get CCC 1/1
@@ -54,21 +71,46 @@ function getYearLast(ms) {
 	yearLast = 0;
 
     for (var i = 0; i < moonNum; i++) {
-	if (moonCount < (winterLast + synodMo)) {
-	    moonFrag = moonCount - winterLast;
+	if (moonCount < (getWinterLast(ms) + synodMo)) {
+	    moonFrag = moonCount - getWinterLast(ms);
 	    break;
 	} else {
 	    moonCount -= synodMo;
 	}
     }
 
-    rawYearLast = winterLast + moonFrag + synodMo;
+    //Chinese new year is the 2nd new moon after the winter solstice
+    rawYearLast = getWinterLast(ms) + moonFrag + synodMo;
+    //the day this point in time occurs - New Year's Day, Zi Hour: 00 Ke.
     yearLast = (Math.floor(rawYearLast / day)) * day;
     return yearLast; 
 }
 
-//doesn't yet identify which are intercalary months. Sometimes there's a month 13 here. todo: use majSTrm to identify the intercalary (run) month.
+//returns the CC month
 function getMonth(ms) {
-    var monthNum = Math.floor((ms - getYearLast(ms)) / synodMo);
-    return monthNum;
+    var moonNum = Math.floor((ms - getYearLast(ms)) / synodMo);
+	moonNext = Math.floor((getMoonLast(ms) + synodMo) / day) * day,
+	month = 0;
+	monthAry = [];
+
+    //tests if it's the first month
+    if (moonNum) {
+    //needs to loop through the months of this year starting with month 1
+	for (var i = 0; i < moonNum; i++) {
+	    //NEEDS WORK!!! only tests last month over and over.
+	    
+	    //tests if it's a run (intercalary) month
+	    //moonNext and MSTLast are moving targets. Need counter(s).
+	    if (moonNext - getMSTLast(ms) > symodMo) {
+	        monthAry.push("run" + month);
+	    } else {
+	        month += 1;
+		monthAry.push(month);
+	    }
+	}
+    } else {
+	monthAry.push(1);
+    }
+
+    return monthAry.pop();
 }
