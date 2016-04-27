@@ -58,12 +58,11 @@ function getMSTLast(ms) {
 
 //returns the starting time (ms) for the last chinese new year
 //the starting point for the Chinese Date
-//todo: what about the 11th and 12th months? They can be past solstice.
 function getYearLast(ms) {
 	//gets the # of months since 1970.
     var moonNum = Math.floor((ms - nMOffset) / synodMo),
 	//a counter for the loop
-	moonCount = ms,
+	moonCount = getMoonLast(ms) + synodMo,
 	//an important piece of the puzzle to get CCC 1/1
 	moonFrag = 0,
 	//ms precise start of newest new year.
@@ -90,31 +89,28 @@ function getYearLast(ms) {
 //returns the CC month
 function getMonth(ms) {
     var moonNum = Math.floor((ms - getYearLast(ms)) / synodMo);
-	moonNext = Math.floor((getMoonLast(ms) + synodMo) / day) * day,
-	mSTNext = Math.floor((getMSTLast(ms) + majSTrm)/ day) * day,
-	moonCount = moonNext,
-	mSTCount = mSTNext,
+
+	moonNext = getMoonLast(ms) + synodMo,
+	mSTLast = getMSTLast(moonNext),
+
 	month = moonNum + 1,
 	monthAry = [];
 
     //tests if it's the first month
     if (moonNum) {
-    //needs to loop through the months of this year starting with month 1
 	for (var i = 0; i < moonNum; i++) {
 	    //tests if it's a run (intercalary) month
-	    if (moonCount - mSTCount > synodMo) {
+	    if (moonNext - mSTLast > synodMo) {
 	        monthAry.unshift("run" + month);
-		moonCount -= Math.floor(synodMo / day) * day;
-		mSTCount -= Math.floor(majSTrm / day) * day;
+		moonNext -= synodMo;
 	    } else {
 	        month -= 1;
 		monthAry.unshift(month);
-		moonCount -= Math.floor(synodMo / day) * day;
-		mSTCount -= Math.floor(majSTrm / day) * day;
+		moonNext -= synodMo;
 	    }
 	}
     } else {
-	monthAry.push(1);
+	monthAry.push(month);
     }
 
     return monthAry.pop();
