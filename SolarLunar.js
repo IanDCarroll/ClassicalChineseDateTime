@@ -27,6 +27,7 @@
 //todo: remember Chinese days start at UTC -1 Hours! 
 //Make sure to account for it! (first func: ms + 1 hr)
 //todo: retool functions so they can handle dates before 1970.
+//Haven't decided when to truncate raw ms into dayOf ms etc.
 
 //constants:
 var wSOffset = -861360000,
@@ -88,12 +89,12 @@ function getYearLast(ms) {
 
 //returns the CC month
 function getMonth(ms) {
-    var moonNum = Math.floor((ms - getYearLast(ms)) / synodMo);
+    var moonNum = Math.ceil((ms - getYearLast(ms)) / synodMo);
 
 	moonNext = getMoonLast(ms) + synodMo,
 	mSTLast = getMSTLast(moonNext),
 
-	month = moonNum + 1,
+	month = moonNum,
 	monthAry = [];
 
     //tests if it's the first month
@@ -114,4 +115,30 @@ function getMonth(ms) {
     }
 
     return monthAry.pop();
+}
+
+//returns the CC day of the month.
+//worry: should getMoonLast be day-truncated in this case?
+function getDay(ms) {
+    var dayOfMonth = Math.ceil((ms - getMoonLast(ms)) / day);
+    return dayOfMonth;
+}
+
+//returns the CC "week" which is 10 or 9 days long depending.
+//only the lower xun is ever 9 in the case of a 29 day month.
+function getXun(ms) {
+    var xunNum = Math.ceil(getDay(ms) / 10),
+	xun = "";
+    switch (xunNum) {
+	case 1:
+	    xun = "Upper Xun";
+	    break;
+	case 2:
+	    xun = "Middle Xun";
+	    break;
+	default:
+	    xun = "Lower Xun";
+	    break;
+    }
+    return xun;
 }
