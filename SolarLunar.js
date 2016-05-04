@@ -30,16 +30,22 @@
 //Haven't decided when to truncate raw ms into dayOf ms etc.
 
 //constants:
-var wSOffset = -861360000,
+var zHOffset =   -3600000,
+    wSOffset = -861360000,
     nMOffset =  592500000,
+    day     =    86400000,
     mTropYr = 31556925000,
     synodMo =  2551442802,
-    day =        86400000,
     SolTerm = mTropYr / 24,
     majSTrm = mTropYr / 12;
 
-//returns the most recent winter solstice
-//gets the number of winters since 12/1969 in ms usable form.
+//gets the ms useable time of the start of the last CC day, at 23:00 UTC
+function getDayLast(ms) {
+    var dayLast = Math.floor((ms - zHOffset) / day) * day;
+    return dayLast;
+}
+
+//returns the ms useable time of the most recent winter solstice 
 function getWinterLast(ms) {
     var winterlast = Math.floor((ms - wSOffset) / mTropYr) * mTropYr;
     return winterLast; 
@@ -53,7 +59,7 @@ function getMoonLast(ms) {
 
 //gets the ms usable date of the last major solar term.
 function getMSTLast(ms) {
-    var mSTLast = Math.floor((ms - wSOffset) / majSTrm)) * majSTrm;
+    var mSTLast = Math.floor((ms - wSOffset) / majSTrm) * majSTrm;
     return mSTLast;
 }
 
@@ -83,10 +89,11 @@ function getYearLast(ms) {
     //Chinese new year is the 2nd new moon after the winter solstice
     rawYearLast = getWinterLast(ms) + moonFrag + synodMo;
     //the day this point in time occurs - New Year's Day, Zi Hour: 00 Ke.
-    yearLast = (Math.floor(rawYearLast / day)) * day;
+    yearLast = getDayLast(rawYearLast);
     return yearLast; 
 }
 
+//todo: make month not count from the artificial start of day.
 //returns the CC month
 function getMonth(ms) {
     var moonNum = Math.ceil((ms - getYearLast(ms)) / synodMo);
