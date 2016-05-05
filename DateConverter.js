@@ -1,16 +1,17 @@
 /* solar & lunar calculator
- * this code returns the Chinese calendar year and month.
- *    1. The new moon in ms relative to UTC 1/1/1970 00:00:00:000
- *    2. The 24 solar terms of CCT as above.
- * this data can then be passed to TempConV2.js to calculate the year, 
- * month, xun, and day along with any intercalary months, and whether those 
- * months are long (30 days) or short (29)
+ * this code returns the Chinese calendar date 
+ * from ms relative to UTC 1/1/1970 00:00:00:000
  *
- * Avg Synodic Month  = 	   2551442802 ms
- * Mean Tropical Year = 	  31556925000 ms
+ * this data can then be passed to TempConV2.js to get the CC Time 
+ *
+ * notes:
+ * Avg Synodic Month           =   2551442802 ms
+ * Mean Tropical Year          =  31556925000 ms
  * ms to next great Solar Term =   2629743750 ms
- * ms to next Solar Term = 	   1314871875 ms
+ * ms to next Solar Term       =   1314871875 ms
  *
+ * Closest CC new day to	   UTC 1/1/1970 00:00:000 =
+ *	UTC 31/12/1969 23:00:000 =   -3600000 ms
  * Closest Winter Solstice to      UTC 1/1/1970 00:00:000 = 
  *	UTC 22/12/1969 00:44:000 = -861360000 ms
  * Closest New Moon to 		   UTC 1/1/1970 00:00:000 =
@@ -24,10 +25,7 @@
  * (unless Daylight savings, then its 00:00:000 again)
  */
 
-//todo: remember Chinese days start at UTC -1 Hours! 
-//Make sure to account for it! (first func: ms + 1 hr)
 //todo: retool functions so they can handle dates before 1970.
-//Haven't decided when to truncate raw ms into dayOf ms etc.
 
 //constants:
 var zHOffset =   -3600000,
@@ -63,8 +61,8 @@ function getMSTLast(ms) {
     return mSTLast;
 }
 
-//returns the starting time (ms) for the last chinese new year
-//the starting point for the Chinese Date
+//returns the starting time of the new moon 
+//in ms for the last chinese new year
 function getYearLast(ms) {
 	//gets the # of months since 1970.
     var moonNum = Math.floor((ms - nMOffset) / synodMo),
@@ -73,11 +71,9 @@ function getYearLast(ms) {
 	//an important piece of the puzzle to get CCC 1/1
 	moonFrag = 0,
 	//ms precise start of newest new year.
-	rawYearLast = 0,
-	//more useful day precise start of new year.
-	yearLast = 0;
+	moonYearLast = 0,
 
-    for (var i = 0; i < moonNum; i++) {
+    for (var i = moonNum; i > 0; i--) {
 	if (moonCount < (getWinterLast(ms) + synodMo)) {
 	    moonFrag = moonCount - getWinterLast(ms);
 	    break;
@@ -87,10 +83,9 @@ function getYearLast(ms) {
     }
 
     //Chinese new year is the 2nd new moon after the winter solstice
-    rawYearLast = getWinterLast(ms) + moonFrag + synodMo;
-    //the day this point in time occurs - New Year's Day, Zi Hour: 00 Ke.
-    yearLast = getDayLast(rawYearLast);
-    return yearLast; 
+    moonYearLast = getWinterLast(ms) + moonFrag + synodMo;
+    
+    return moonYearLast; 
 }
 
 //todo: make month not count from the artificial start of day.
@@ -148,4 +143,9 @@ function getXun(ms) {
 	    break;
     }
     return xun;
+}
+
+function getTime(ms) {
+    var msTime = (ms - zHOffset) % day;
+    return msTime;
 }

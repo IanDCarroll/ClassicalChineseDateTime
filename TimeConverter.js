@@ -1,11 +1,12 @@
-/* Temporal Converter Version 2.0
- * Like the previous version this is open source, please refer to the license
+/* Time Converter
+ * This is open source, please refer to the license
  * for details.
- * Temporal Converter converts Modern Western to Classical Chinese
+ * Time Converter converts Modern Western to Classical Chinese
  * systems of time measurement. Future versions may do the reverse, or allow
- * more generalized methods for converting to other non-standard time systems.
- * Version 2.0 is intended to give more accurate time information, down to the
- * millisecond. And access the JS Date function for greater utility.
+ * more generalized methods for converting to other 
+ * non-standard time systems.
+ * Time converter gives more accurate time information, down to the
+ * millisecond. And access to the JS Date function for greater utility.
  */
 
 /* Conversion chart for millisenconds:
@@ -22,7 +23,7 @@
  * 1 Month = 2592000000 ms -or-
  *           2505600000 ms (12 or 13 per year)
  * Years are varriable, some have leap months added to them.
- * 1 Year = 12 or 13 Months (In rare cases, 14)
+ * 1 Year = 12 or 13 Months
  * 1 Sixtyear = 60 years
  * 1 Great Cycle = 3 sixtyears
  * The first day of the first year of the first Great Cycle was in 2697 BC.
@@ -39,7 +40,7 @@ function convToCCT(ms) {
 	miao = 0,
 	fen = 0,
 	xiaoKe = 0,
-	ke = 0,  
+	ke = 0,
 	shiChenNum = 0,
 	day = 0,
 	localAry = [];
