@@ -134,6 +134,10 @@ function getCCTNow() {
 	//The 3,600,000 is the hour earlier that Classical Chinese time 
 	//recons the start of day (11pm)
 	nowTZ = -(nowUTC.getTimezoneOffset() * 60000 - 3600000),
+	//Daylight Savings Solution: Add parameter for TZ offset 
+        //rather than using the automated one that factors daylight savings.
+	//OR: CCT never accounted for time zones, China doesn't either. 
+	//Just skip it. (seems a little inelegant...)
 	now = nowUTCms + nowTZ;
 
     return displayCCT(now);
