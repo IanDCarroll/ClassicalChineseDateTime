@@ -27,9 +27,8 @@
  * 1 Sixtyear = 60 years
  * 1 Great Cycle = 3 sixtyears
  * The first day of the first year of the first Great Cycle was in 2697 BC.
+ * CCT recognizes time zones, but not daylight savings time.
  */
-
-//todo: Account for daylight savings first US, but also other contries.
 
 //public data table
 var temprlAry = [];
@@ -127,22 +126,25 @@ function displayCCT (ms) {
     return display;
 }
 
-function getCCTNow() {
+function getCCTNow(TZ) {
     var nowUTC = new Date,
 	nowUTCms = Date.parse(nowUTC),
-	//60,000ms = the minutes of Timezone offset
-	//The 3,600,000 is the hour earlier that Classical Chinese time 
-	//recons the start of day (11pm)
-	nowTZ = -(nowUTC.getTimezoneOffset() * 60000 - 3600000),
-	//Daylight Savings Solution: Add parameter for TZ offset 
-        //rather than using the automated one that factors daylight savings.
-	//OR: CCT never accounted for time zones, China doesn't either. 
-	//Just skip it. (seems a little inelegant...)
+	nowTZ = 0,
+	minute = 60000,
+	hour = 3600000;
+	//the hour earlier is because Classical Chinese time 
+	//recons the start of day at 2300 hrs.
+	if (TZ === undefined ) {
+		nowTZ = -(nowUTC.getTimezoneOffset() * minute - hour);
+	} else { 
+		nowTZ = TZ * hour + hour;
+	}
+
 	now = nowUTCms + nowTZ;
 
     return displayCCT(now);
 }
 
 //maual tests:
-console.log(getCCTNow());
+console.log(getCCTNow(-8));
 console.log(Date());
