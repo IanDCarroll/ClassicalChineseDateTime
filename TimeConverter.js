@@ -31,10 +31,10 @@
  */
 
 //public data table
-var temprlAry = [];
+var tmprlRA = [];
 
 //the core converter. Uses ms because that's the base time unit in Date().
-function convToCCT(ms) {
+function convToCCT(ms) { 
     var rawMiao = 0,
 	miao = 0,
 	fen = 0,
@@ -42,7 +42,7 @@ function convToCCT(ms) {
 	ke = 0,
 	shiChenNum = 0,
 	day = 0,
-	localAry = [];
+	localRA = [];
 
     rawMiao = ms / 144;
     miao = Math.floor(rawMiao) % 100;
@@ -59,9 +59,9 @@ function convToCCT(ms) {
 	day = Math.floor(rawMiao / 600000);
     }
 
-    localAry.push(day, shiChenNum, ke, xiaoKe, fen, miao);
-    temprlAry = localAry;
-    return temprlAry;
+    localRA.push(day, shiChenNum, ke, xiaoKe, fen, miao);
+    tmprlRA = localRA;
+    return tmprlRA;
 }
 
 //separating out display from calc so it's easy to delete.
@@ -70,7 +70,7 @@ function displayCCT (ms) {
 
     var shiChen = "";
 
-    switch(temprlAry[1]) {
+    switch(tmprlRA[1]) {
 	case 0:
 	    shiChen = "Zi";
 	    break;
@@ -109,19 +109,19 @@ function displayCCT (ms) {
 	    break;
     }
 
-    //stringifies numbers after the Shi place (temprlAry[1]) if < 10
+    //stringifies numbers after the Shi place (tmprlRA[1]) if < 10
     //so they always have an even two spaces.
-    for (var i = 2; i < temprlAry.length; i++) {
-	if (temprlAry[i] < 10 ) {
-	    temprlAry[i].toString;
-	    temprlAry[i] = "0" + temprlAry[i]; 
+    for (var i = 2; i < tmprlRA.length; i++) {
+	if (tmprlRA[i] < 10 ) {
+	    tmprlRA[i].toString;
+	    tmprlRA[i] = "0" + tmprlRA[i]; 
 	}
     }
 
-    var display = "Day " + temprlAry[0] + ". " 
-		+ shiChen + " Shi " + temprlAry[3] + ". " 
-		+ "Ke " + temprlAry[2] + ":" + temprlAry[4] + ":" 
-		+ temprlAry[5] + " o'day.";
+    var display = "Day " + tmprlRA[0] + ". " 
+		+ shiChen + " Shi " + tmprlRA[3] + ". " 
+		+ "Ke " + tmprlRA[2] + ":" + tmprlRA[4] + ":" 
+		+ tmprlRA[5] + " o'day.";
 
     return display;
 }
